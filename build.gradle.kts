@@ -30,8 +30,8 @@ dependencies {
     compileOnly("org.projectlombok:lombok:$lombokVer") // https://mvnrepository.com/artifact/org.projectlombok/lombok
     annotationProcessor("org.projectlombok:lombok:$lombokVer")
 
-//    compileOnly("org.mapstruct:mapstruct:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
-//    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
+    compileOnly("org.mapstruct:mapstruct:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
 
     runtimeOnly("org.postgresql:postgresql:$postgresqlVer") // https://mvnrepository.com/artifact/org.postgresql/postgresql
 

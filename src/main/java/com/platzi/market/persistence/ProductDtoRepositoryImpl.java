@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductRepositoryImpl implements ProductDtoRepository {
+public class ProductDtoRepositoryImpl implements ProductDtoRepository {
 
     private final ProductCrudRepository crudRepository;
     private final ProductMapper mapper;
 
     @Autowired
-    public ProductRepositoryImpl(ProductCrudRepository crudRepository, ProductMapper mapper) {
+    public ProductDtoRepositoryImpl(ProductCrudRepository crudRepository, ProductMapper mapper) {
         this.crudRepository = crudRepository;
         this.mapper = mapper;
     }

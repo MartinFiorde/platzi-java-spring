@@ -22,7 +22,7 @@ public class Product {
     private String name;
 
     @Column(name = "id_categoria")
-    private Integer idCategory;
+    private Long idCategory; // TODO for ids, its recomended to use Long over Integers, because rows in ral production enviroments can surpass Integer limit easly
 
     @Column(name = "codigo_barras")
     private String barCode;

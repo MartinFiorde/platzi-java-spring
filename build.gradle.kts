@@ -20,6 +20,7 @@ repositories {
 val dotEnvVer = "3.0.0"
 val lombokVer = "1.18.32"
 val postgresqlVer = "42.7.3"
+val mapstructVer = "1.5.5.Final"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") // no version, spring handle by default
@@ -28,6 +29,9 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok:$lombokVer") // https://mvnrepository.com/artifact/org.projectlombok/lombok
     annotationProcessor("org.projectlombok:lombok:$lombokVer")
+
+//    compileOnly("org.mapstruct:mapstruct:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+//    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
 
     runtimeOnly("org.postgresql:postgresql:$postgresqlVer") // https://mvnrepository.com/artifact/org.postgresql/postgresql
 

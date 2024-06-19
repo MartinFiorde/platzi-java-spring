@@ -15,7 +15,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
-    private Long id; // use class wrappers, not primitives (Integer over int in this case)
+    private Long id; // TODO use class wrappers, not primitives (Integer over int in this case) to avoid errors with null values in DB
 
     @Column(name = "nombre")
     private String name;
@@ -27,12 +27,12 @@ public class Product {
     private String barCode;
 
     @Column(name = "precio_venta")
-    private BigDecimal sellPrice; // https://dzone.com/articles/never-use-float-and-double-for-monetary-calculatio
+    private BigDecimal sellPrice; // TODO https://dzone.com/articles/never-use-float-and-double-for-monetary-calculatio
 
     @Column(name = "cantidad_stock")
     private Integer stockQuantity;
 
-    //@Column(name = "estado") // No hace falta especificar el nombre si nombre de clase y nombre de columna coinciden
-    private Boolean estado;
+    @Column(name = "estado")
+    private Boolean state;
 
 }

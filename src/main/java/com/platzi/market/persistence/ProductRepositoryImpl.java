@@ -26,31 +26,30 @@ public class ProductRepositoryImpl implements ProductDtoRepository {
     @Override
     public List<ProductDto> getAll() {
         List<Product> products = (List<Product>) crudRepository.findAll();
-        return mapper.toDomainProducts(products);
+        return mapper.toProductDtos(products);
     }
 
     @Override
     public Optional<List<ProductDto>> getByCategory(long idCategory) {
         List<Product> products = crudRepository.findByIdCategoryOrderByNameAsc(idCategory);
-        return Optional.of(mapper.toDomainProducts(products));
+        return Optional.of(mapper.toProductDtos(products));
     }
 
     @Override
     public Optional<List<ProductDto>> getScarceProducts(int stockQuantity) {
         Optional<List<Product>> products = crudRepository.findByStockQuantityLessThanAndState(stockQuantity, true);
-        return products.map(mapper::toDomainProducts);
-//      return products.map(prods -> mapper.toDomainProducts(prods)); // TODO equivalent sintax
+        return products.map(mapper::toProductDtos); // TODO equivalent sintax: products.map(prod -> mapper.toProductDtos(prod))
     }
 
     @Override
     public Optional<ProductDto> getProduct(long id) {
-        return crudRepository.findById(id).map(mapper::toDomainProduct);
+        return crudRepository.findById(id).map(mapper::toProductDto);
     }
 
     @Override
     public ProductDto save(ProductDto productDto) {
         Product product = mapper.toProduct(productDto);
-        return mapper.toDomainProduct(crudRepository.save(product));
+        return mapper.toProductDto(crudRepository.save(product));
     }
 
     @Override

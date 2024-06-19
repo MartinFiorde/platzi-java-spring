@@ -18,9 +18,9 @@ public interface ProductMapper {
     @Mapping(target = "stock", source = "stockQuantity")
     @Mapping(target = "active", source = "state")
     @Mapping(target = "category", source = "category")
-    ProductDto toDomainProduct(Product product);
+    ProductDto toProductDto(Product product);
 
-    List<ProductDto> toDomainProducts(List<Product> products);
+    List<ProductDto> toProductDtos(List<Product> products);
 
     @InheritInverseConfiguration
     @Mapping(target = "barCode", ignore = true)

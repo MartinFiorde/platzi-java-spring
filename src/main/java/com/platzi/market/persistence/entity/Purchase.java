@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "compras")
@@ -31,5 +32,12 @@ public class Purchase {
 
     @Column(name = "estado")
     private Boolean state;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+    private Client client;
+
+    @OneToMany(mappedBy = "purchase")
+    private List<PurchaseProduct> purchaseProducts;
 
 }

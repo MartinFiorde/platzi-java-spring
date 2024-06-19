@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "productos")
@@ -36,6 +37,9 @@ public class Product {
     private Boolean state;
 
     @ManyToOne
-    @JoinColumn( name = "id_categoria",insertable = false, updatable = false) //TODO insertable and updatable on false avoid making changes on category table from a product. need to change directly from their asociated category class
+    @JoinColumn( name = "id_categoria", insertable = false, updatable = false) //TODO insertable and updatable on false avoid making changes on category table from a product. need to change directly from their asociated category class
     private Category category;
+
+    @OneToMany(mappedBy = "product")
+    private List<PurchaseProduct> purchaseProducts;
 }

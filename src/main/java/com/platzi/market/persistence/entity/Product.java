@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "productos")
 @Getter
@@ -25,7 +27,7 @@ public class Product {
     private String barCode;
 
     @Column(name = "precio_venta")
-    private Integer sellPrice;
+    private BigDecimal sellPrice; // https://dzone.com/articles/never-use-float-and-double-for-monetary-calculatio
 
     @Column(name = "cantidad_stock")
     private Integer stockQuantity;

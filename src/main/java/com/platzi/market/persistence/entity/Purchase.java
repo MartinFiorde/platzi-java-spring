@@ -29,7 +29,7 @@ public class Purchase {
     @Column(name = "comentario")
     private Integer comment;
 
-    //@Column(name = "estado") // No hace falta especificar el nombre si nombre de clase y nombre de columna coinciden
-    private Boolean estado;
+    @Column(name = "estado")
+    private Boolean state;
 
 }

@@ -1,5 +1,6 @@
 package com.platzi.market.web.controller;
 
+import com.platzi.market.persistence.entity.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,9 @@ public class HolaMundoController {
 
     @GetMapping("/hola")
     public String saludar() {
-        return "Hola Mundo! Nunca pares de aprender";
+        Product p1 = new Product();
+        p1.setName("maf");
+
+        return "Hola Mundo! Nunca pares de aprender (product "+p1.getName()+")";
     }
 }

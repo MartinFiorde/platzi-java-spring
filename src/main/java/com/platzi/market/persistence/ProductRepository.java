@@ -2,7 +2,6 @@ package com.platzi.market.persistence;
 
 import com.platzi.market.persistence.crud.ProductCrudRepository;
 import com.platzi.market.persistence.entity.Product;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

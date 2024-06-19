@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "categorias")
 @Getter
@@ -21,4 +23,6 @@ public class Category {
     @Column(name = "estado")
     private Boolean state;
 
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }

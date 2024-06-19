@@ -35,4 +35,7 @@ public class Product {
     @Column(name = "estado")
     private Boolean state;
 
+    @ManyToOne
+    @JoinColumn( name = "id_categoria",insertable = false, updatable = false) //TODO insertable and updatable on false avoid making changes on category table from a product. need to change directly from their asociated category class
+    private Category category;
 }

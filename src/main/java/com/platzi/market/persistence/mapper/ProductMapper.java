@@ -1,6 +1,6 @@
 package com.platzi.market.persistence.mapper;
 
-import com.platzi.market.domain.DomainProduct;
+import com.platzi.market.domain.dto.ProductDto;
 import com.platzi.market.persistence.entity.Product;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -18,14 +18,14 @@ public interface ProductMapper {
     @Mapping(target = "stock", source = "stockQuantity")
     @Mapping(target = "active", source = "state")
     @Mapping(target = "category", source = "category")
-    DomainProduct toDomainProduct(Product product);
+    ProductDto toDomainProduct(Product product);
 
-    List<DomainProduct> toDomainProducts(List<Product> products);
+    List<ProductDto> toDomainProducts(List<Product> products);
 
     @InheritInverseConfiguration
     @Mapping(target = "barCode", ignore = true)
-    Product toProduct(DomainProduct domainProduct);
+    Product toProduct(ProductDto productDto);
 
-    List<Product> toProducts(List<DomainProduct> domainProducts);
+    List<Product> toProducts(List<ProductDto> productDtos);
 
 }

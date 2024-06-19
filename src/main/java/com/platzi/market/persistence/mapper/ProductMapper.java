@@ -26,4 +26,6 @@ public interface ProductMapper {
     @Mapping(target = "barCode", ignore = true)
     Product toProduct(DomainProduct domainProduct);
 
+    List<Product> toProducts(List<DomainProduct> domainProducts);
+
 }

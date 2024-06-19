@@ -1,37 +1,59 @@
 package com.platzi.market.persistence;
 
+import com.platzi.market.domain.DomainProduct;
+import com.platzi.market.domain.repository.DomainProductRepository;
 import com.platzi.market.persistence.crud.ProductCrudRepository;
 import com.platzi.market.persistence.entity.Product;
+import com.platzi.market.persistence.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements DomainProductRepository {
 
-    private ProductCrudRepository crudRepository;
+    private final ProductCrudRepository crudRepository;
+    private final ProductMapper mapper;
 
-    public List<Product> getAll() {
-        return (List<Product>) crudRepository.findAll();
+    @Autowired
+    public ProductRepository(ProductCrudRepository crudRepository, ProductMapper mapper) {
+        this.crudRepository = crudRepository;
+        this.mapper = mapper;
     }
 
-    public List<Product> getByCategory(long idCategory) {
-        return crudRepository.findByIdCategoryOrderByNameAsc(idCategory);
+    @Override
+    public List<DomainProduct> getAll() {
+        List<Product> products = (List<Product>) crudRepository.findAll();
+        return mapper.toDomainProducts(products);
     }
 
-    public Optional<List<Product>> getEscasos(int stockQuantity) {
-        return crudRepository.findByStockQuantityLessThanAndState(stockQuantity, true);
+    @Override
+    public Optional<List<DomainProduct>> getByCategory(long idCategory) {
+        List<Product> products = crudRepository.findByIdCategoryOrderByNameAsc(idCategory);
+        return Optional.of(mapper.toDomainProducts(products));
     }
 
-    public Optional<Product> getProduct(long id) {
-        return crudRepository.findById(id);
+    @Override
+    public Optional<List<DomainProduct>> getScarceProducts(int stockQuantity) {
+        Optional<List<Product>> products = crudRepository.findByStockQuantityLessThanAndState(stockQuantity, true);
+        return products.map(mapper::toDomainProducts);
+//      return products.map(prods -> mapper.toDomainProducts(prods)); // TODO equivalent sintax
     }
 
-    public Product save(Product product) {
-        return crudRepository.save(product);
+    @Override
+    public Optional<DomainProduct> getProduct(long id) {
+        return crudRepository.findById(id).map(mapper::toDomainProduct);
     }
 
+    @Override
+    public DomainProduct save(DomainProduct domainProduct) {
+        Product product = mapper.toProduct(domainProduct);
+        return mapper.toDomainProduct(crudRepository.save(product));
+    }
+
+    @Override
     public void delete(long id) {
         crudRepository.deleteById(id);
     }

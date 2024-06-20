@@ -3,6 +3,8 @@ package com.platzi.market.web.controller;
 import com.platzi.market.domain.dto.ProductDto;
 import com.platzi.market.domain.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,38 +22,42 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public List<ProductDto> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<ProductDto>> getAll() { // OLD VERSION: List<ProductDto> getAll()
+        return new ResponseEntity<>(service.getAll(), HttpStatus.OK); // OLD VERSION: return service.getAll()
     }
 
     @GetMapping("/{id}")
-    public Optional<ProductDto> getProduct(@PathVariable long id) {
-        return service.getProduct(id);
+    public ResponseEntity<ProductDto> getProduct(@PathVariable long id) {
+        return ResponseEntity.of(service.getProduct(id)); // ResponseEntity OK/NOT_FOUND split for Spring 5.X and over
     }
 
     @GetMapping("/category/{id}")
-    public Optional<List<ProductDto>> getByCategory(@PathVariable("id") long categoryId) { // specify @pathVar because varaible name doesnt match path reference
-        return service.getByCategory(categoryId);
+    public ResponseEntity<List<ProductDto>> getByCategory(@PathVariable("id") long categoryId) { // specify @pathVar because varaible name doesnt match path reference
+        return service.getByCategory(categoryId)
+                .map(prods -> new ResponseEntity<>(prods,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND)); // ResponseEntity OK/NOT_FOUND split for Spring versions bellow 5.X
     }
 
     @GetMapping("/stock-bellow/{quantity}")
-    public Optional<List<ProductDto>> getScarceProducts(@PathVariable int quantity) {
-        return service.getScarceProducts(quantity);
+    public ResponseEntity<List<ProductDto>> getScarceProducts(@PathVariable int quantity) {
+        return ResponseEntity.of(service.getScarceProducts(quantity));
     }
 
     @PutMapping
-    public Optional<ProductDto> update(@RequestBody ProductDto product) {
-        return service.update(product.getProductId(), product);
+    public ResponseEntity<ProductDto> update(@RequestBody ProductDto product) {
+        return ResponseEntity.of(service.update(product.getProductId(), product));
     }
 
     @PostMapping
-    public ProductDto save(@RequestBody ProductDto product) {
-        return service.save(product);
+    public ResponseEntity<ProductDto> save(@RequestBody ProductDto product) {
+        return new ResponseEntity<>(service.save(product),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable long id) {
-        return service.delete(id);
+    public ResponseEntity delete(@PathVariable long id) {
+        return service.delete(id)
+                ? new ResponseEntity(HttpStatus.NO_CONTENT)
+                : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
 }

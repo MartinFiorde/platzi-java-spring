@@ -1,7 +1,7 @@
 package com.platzi.market.domain.service;
 
 import com.platzi.market.domain.dto.ProductDto;
-import com.platzi.market.domain.exceptions.CustomEmptyResultException;
+import com.platzi.market.domain.exceptions.ProductNotFoundException;
 import com.platzi.market.domain.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,9 @@ public class ProductService {
     }
 
     public Optional<List<ProductDto>> getByCategory(long categoryId) {
-        return productRepository.getByCategory(categoryId);
+        return productRepository.getByCategory(categoryId).filter(prods -> !prods.isEmpty()); // another way: [...].filter(Predicate.not(List::isEmpty)
+        // VERSION MIA Optional<List<ProductDto>> optProds = productRepository.getByCategory(categoryId)
+        // VERSION MIA return (optProds.orElse(Collections.emptyList()).isEmpty()) ? Optional.empty() : optProds
     }
 
     public Optional<List<ProductDto>> getScarceProducts(int stockQuantity) {
@@ -41,26 +43,24 @@ public class ProductService {
 
     // TODO PROBAR Y REVISAR. SOLUCION PROPUESTA POR UN ALUMNO Y CHATGPT. REVISAR VALIDACIONES https://chatgpt.com/share/a073ce0a-2443-493c-969d-04763e964a5f
     public Optional<ProductDto> update(long id, ProductDto productDto) {
-        Optional<ProductDto> optProductDto = productRepository.getProduct(id);
-        if (optProductDto.isEmpty()) {
+        ProductDto productToUpdate = productRepository.getProduct(id).orElse(null);
+        if (productToUpdate == null) {
             return Optional.empty();
-        } else {
-            ProductDto productToUpdate = optProductDto.get();
-            if (productDto.getName() != null) productToUpdate.setName(productDto.getName());
-            if (productDto.getCategoryId() != null) productToUpdate.setCategoryId(productDto.getCategoryId());
-            if (productDto.getPrice() != null) productToUpdate.setPrice(productDto.getPrice());
-            if (productDto.getStock() != null) productToUpdate.setStock(productDto.getStock());
-            if (productDto.getActive() != null) productToUpdate.setActive(productDto.getActive());
-            return Optional.of(productRepository.save(productToUpdate));
         }
+        if (productDto.getName() != null) productToUpdate.setName(productDto.getName());
+        if (productDto.getCategoryId() != null) productToUpdate.setCategoryId(productDto.getCategoryId());
+        if (productDto.getPrice() != null) productToUpdate.setPrice(productDto.getPrice());
+        if (productDto.getStock() != null) productToUpdate.setStock(productDto.getStock());
+        if (productDto.getActive() != null) productToUpdate.setActive(productDto.getActive());
+        return Optional.of(productRepository.save(productToUpdate));
     }
 
     public boolean delete(long id) {
         try {
-            if (!productRepository.existsById(id)) throw new CustomEmptyResultException(id);
+            if (!productRepository.existsById(id)) throw new ProductNotFoundException(id);
             productRepository.delete(id);
             return true;
-        } catch (CustomEmptyResultException e) {
+        } catch (ProductNotFoundException e) {
             // TODO REGISTER ERROR IN LOGS
             return false;
         }

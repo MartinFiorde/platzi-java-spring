@@ -28,9 +28,8 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-java:$dotEnvVer") // https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
 
     compileOnly("org.projectlombok:lombok:$lombokVer") // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    annotationProcessor("org.projectlombok:lombok:$lombokVer")
-
     compileOnly("org.mapstruct:mapstruct:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    annotationProcessor("org.projectlombok:lombok:$lombokVer")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
 
     runtimeOnly("org.postgresql:postgresql:$postgresqlVer") // https://mvnrepository.com/artifact/org.postgresql/postgresql
@@ -39,6 +38,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-tasks.named<Test>("test") {
+tasks.named<Test>("test") { //"tasks.test {" for same result
     useJUnitPlatform()
+    jvmArgs("-XX:+EnableDynamicAgentLoading") // Supress warnings when we execute tests
 }

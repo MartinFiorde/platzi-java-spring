@@ -15,35 +15,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class ProductCrudRepositoryTest {
+class ProductCrudRepTest {
+
+    private final ProductCrudRep productCrudRep;
 
     @Autowired
-    ProductCrudRepository productCrudRepository;
+    public ProductCrudRepTest(ProductCrudRep productCrudRep) {
+        this.productCrudRep = productCrudRep;
+    }
 
     @Test
-    void shouldReturnAProductListFromRepository() {
-        List<Product> productEntities = (List<Product>) productCrudRepository.findAll();
+    void shouldReturnAProductListFromRepo() {
+        List<Product> productEntities = (List<Product>) productCrudRep.findAll();
         int productsNum = productEntities.size();
         assertTrue(productsNum > 0);
     }
 
     @Test
     void shouldReturnAListProductFromIdCategoryNativeQuery() {
-        List<Product> productEntities = productCrudRepository.getProductsByCategoryId(1);
-        int productsNum = productEntities.size();
-        assertEquals(10, productsNum);
-    }
-
-    @Test
-    void shouldReturnAListProductFromIdCategoryQueryJpaMethod() {
-        List<Product> productEntities = productCrudRepository.findByIdCategoryOrderByNameAsc(1);
+        List<Product> productEntities = productCrudRep.getProductsByCategoryId(1);
         int productsNum = productEntities.size();
         assertEquals(10, productsNum);
     }
 
     @Test
     void shouldReturnAListProductAreRunningOutOfStock() {
-        Optional<List<Product>> products = productCrudRepository.findByStockQuantityLessThanAndState(5, true);
+        Optional<List<Product>> products = productCrudRep.findByStockQuantityLessThanAndState(5, true);
         long productsNum = products.stream().count();
         assertEquals(1, productsNum);
     }

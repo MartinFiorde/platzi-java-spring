@@ -12,38 +12,36 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    private final ProductRepo productRepo;
+    private final ProductRepo repo;
 
     @Autowired
-    public ProductService(ProductRepo productRepo) {
-        this.productRepo = productRepo;
+    public ProductService(ProductRepo repo) {
+        this.repo = repo;
     }
 
     public List<ProductDto> getAll() {
-        return productRepo.getAll();
+        return repo.getAll();
     }
 
     public Optional<ProductDto> getProduct(long id) {
-        return productRepo.getProduct(id);
+        return repo.getProduct(id);
     }
 
     public Optional<List<ProductDto>> getByCategory(long categoryId) {
-        return productRepo.getByCategory(categoryId).filter(prods -> !prods.isEmpty()); // another way: [...].filter(Predicate.not(List::isEmpty)
-        // VERSION MIA Optional<List<ProductDto>> optProds = productRepository.getByCategory(categoryId)
-        // VERSION MIA return (optProds.orElse(Collections.emptyList()).isEmpty()) ? Optional.empty() : optProds
+        return repo.getByCategory(categoryId).filter(prods -> !prods.isEmpty()); // another way: [...].filter(Predicate.not(List::isEmpty)
     }
 
     public Optional<List<ProductDto>> getScarceProducts(int stockQuantity) {
-        return productRepo.getScarceProducts(stockQuantity);
+        return repo.getScarceProducts(stockQuantity);
     }
 
     public ProductDto save(ProductDto product) {
-        return productRepo.save(product);
+        return repo.save(product);
     }
 
     // TODO PROBAR Y REVISAR. SOLUCION PROPUESTA POR UN ALUMNO Y CHATGPT. REVISAR VALIDACIONES https://chatgpt.com/share/a073ce0a-2443-493c-969d-04763e964a5f
     public Optional<ProductDto> update(long id, ProductDto productDto) {
-        ProductDto productToUpdate = productRepo.getProduct(id).orElse(null);
+        ProductDto productToUpdate = repo.getProduct(id).orElse(null);
         if (productToUpdate == null) {
             return Optional.empty();
         }
@@ -52,13 +50,13 @@ public class ProductService {
         if (productDto.getPrice() != null) productToUpdate.setPrice(productDto.getPrice());
         if (productDto.getStock() != null) productToUpdate.setStock(productDto.getStock());
         if (productDto.getActive() != null) productToUpdate.setActive(productDto.getActive());
-        return Optional.of(productRepo.save(productToUpdate));
+        return Optional.of(repo.save(productToUpdate));
     }
 
     public boolean delete(long id) {
         try {
-            if (!productRepo.existsById(id)) throw new ProductNotFoundException(id);
-            productRepo.delete(id);
+            if (!repo.existsById(id)) throw new ProductNotFoundException(id);
+            repo.delete(id);
             return true;
         } catch (ProductNotFoundException e) {
             // TODO REGISTER ERROR IN LOGS

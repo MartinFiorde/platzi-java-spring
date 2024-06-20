@@ -31,7 +31,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Optional<List<ProductDto>> getByCategory(long idCategory) {
-        List<Product> products = crudRepository.findByIdCategoryOrderByNameAsc(idCategory);
+        List<Product> products = crudRepository.getProductsByCategoryId(idCategory);
         return Optional.of(mapper.toProductDtos(products));
     }
 
@@ -50,6 +50,18 @@ public class ProductRepositoryImpl implements ProductRepository {
     public ProductDto save(ProductDto productDto) {
         Product product = mapper.toProduct(productDto);
         return mapper.toProductDto(crudRepository.save(product));
+    }
+
+    @Override
+    public ProductDto update(ProductDto productDto) {
+        Product product = mapper.toProduct(productDto);
+        //TODO VALIDAR CONTENIDO ANTES DE HACER UN SAVE. VER SI HAY OTRO METODO QUE HAGA UPDATES EN VEZ DE INSERT
+        return mapper.toProductDto(crudRepository.save(product));
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        return crudRepository.existsById(id);
     }
 
     @Override

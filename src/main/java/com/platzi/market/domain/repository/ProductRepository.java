@@ -11,5 +11,7 @@ public interface ProductRepository {
     Optional<List<ProductDto>> getScarceProducts(int quantity);
     Optional <ProductDto> getProduct(long productId);
     ProductDto save(ProductDto product);
+    ProductDto update(ProductDto product);
+    boolean existsById(long id);
     void delete(long productId);
 }

@@ -29,7 +29,7 @@ class ProductCrudRepositoryTest {
 
     @Test
     void shouldReturnAListProductFromIdCategoryNativeQuery() {
-        List<Product> productEntities = productCrudRepository.getProductsByIdCategory(1);
+        List<Product> productEntities = productCrudRepository.getProductsByCategoryId(1);
         int productsNum = productEntities.size();
         assertEquals(10, productsNum);
     }

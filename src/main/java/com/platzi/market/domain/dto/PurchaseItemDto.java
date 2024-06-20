@@ -10,6 +10,6 @@ import java.math.BigDecimal;
 public class PurchaseItemDto {
     private Long productId;
     private Integer quantity;
-    private BigDecimal totalPrice;
+    private BigDecimal total;
     private Boolean active;
 }

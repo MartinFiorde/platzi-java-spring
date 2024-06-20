@@ -5,8 +5,9 @@ import com.platzi.market.persistence.entity.Category;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface CategoryMapper {
 
     @Mapping(target = "categoryId", source = "id")

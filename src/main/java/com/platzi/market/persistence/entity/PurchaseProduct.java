@@ -24,12 +24,12 @@ public class PurchaseProduct {
     private Boolean state;
 
     @ManyToOne
-    @MapsId("id") // when a purchase is made, MapsId anotation link with the purchase attribute. when PurchaseProducts are saved in cascade from the origin Purchase, it will know the PK for each one
+    // @MapsId("id") // when a purchase is made, MapsId anotation link with the purchase attribute. when PurchaseProducts are saved in cascade from the origin Purchase, it will know the PK for each one
     @JoinColumn(name = "id_compra", insertable = false, updatable = false)
     private Purchase purchase;
 
     @ManyToOne
-    @JoinColumn(name = "id_compra", insertable = false, updatable = false)
+    @JoinColumn(name = "id_producto", insertable = false, updatable = false)
     private Product product;
 
 }

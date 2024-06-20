@@ -1,7 +1,7 @@
-package com.platzi.market.persistence;
+package com.platzi.market.domain.repository.implementation;
 
 import com.platzi.market.domain.dto.ProductDto;
-import com.platzi.market.domain.repository.ProductRepository;
+import com.platzi.market.domain.repository.ProductRepo;
 import com.platzi.market.persistence.crud.ProductCrudRepository;
 import com.platzi.market.persistence.entity.Product;
 import com.platzi.market.persistence.mapper.ProductMapper;
@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductRepositoryImpl implements ProductRepository {
+public class ProductRepoImpl implements ProductRepo {
 
     private final ProductCrudRepository crudRepository;
     private final ProductMapper mapper;
 
     @Autowired
-    public ProductRepositoryImpl(ProductCrudRepository crudRepository, ProductMapper mapper) {
+    public ProductRepoImpl(ProductCrudRepository crudRepository, ProductMapper mapper) {
         this.crudRepository = crudRepository;
         this.mapper = mapper;
     }

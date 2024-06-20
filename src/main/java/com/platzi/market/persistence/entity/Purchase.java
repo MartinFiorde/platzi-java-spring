@@ -31,7 +31,7 @@ public class Purchase {
     private Integer comment;
 
     @Column(name = "estado")
-    private Boolean state;
+    private String state;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)

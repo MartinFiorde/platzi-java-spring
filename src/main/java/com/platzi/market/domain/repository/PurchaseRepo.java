@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PurchaseRepo {
     List<PurchaseDto> getAll();
-    Optional<List<PurchaseDto>> getByClient(String clientId);
+    Optional<List<PurchaseDto>> getByClientId(String clientId);
     PurchaseDto save(PurchaseDto purchaseDto);
 }

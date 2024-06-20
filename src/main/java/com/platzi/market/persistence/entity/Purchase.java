@@ -37,7 +37,7 @@ public class Purchase {
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "purchase")
+    @OneToMany(mappedBy = "purchase", cascade = {CascadeType.ALL}) // cascade parameter give order to edit items from list in batch when an interaction against DB is made with their associated purchase object
     private List<PurchaseProduct> purchaseProducts;
 
 }

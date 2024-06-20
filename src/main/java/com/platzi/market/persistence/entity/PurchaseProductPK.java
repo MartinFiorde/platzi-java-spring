@@ -15,7 +15,7 @@ import java.util.Objects;
 public class PurchaseProductPK implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1L; // TODO https://dzone.com/articles/what-is-serialversionuid
+    private static final long serialVersionUID = 1L; // https://dzone.com/articles/what-is-serialversionuid
 
     @Column(name = "id_compra")
     private Long idPurchase;

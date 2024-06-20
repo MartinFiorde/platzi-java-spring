@@ -30,8 +30,13 @@ public class ProductController {
     }
 
     @GetMapping("/category/{id}")
-    public Optional<List<ProductDto>> getByCategory(@PathVariable("id") long categoryId) {
+    public Optional<List<ProductDto>> getByCategory(@PathVariable("id") long categoryId) { // specify @pathVar because varaible name doesnt match path reference
         return service.getByCategory(categoryId);
+    }
+
+    @GetMapping("/stock-bellow/{quantity}")
+    public Optional<List<ProductDto>> getScarceProducts(@PathVariable int quantity) {
+        return service.getScarceProducts(quantity);
     }
 
     @PutMapping

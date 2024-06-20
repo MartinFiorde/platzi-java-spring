@@ -38,7 +38,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<List<ProductDto>> getScarceProducts(int stockQuantity) {
         Optional<List<Product>> products = crudRepository.findByStockQuantityLessThanAndState(stockQuantity, true);
-        return products.map(mapper::toProductDtos); // TODO equivalent sintax: products.map(prod -> mapper.toProductDtos(prod))
+        return products.map(mapper::toProductDtos); // equivalent sintax: products.map(prod -> mapper.toProductDtos(prod))
     }
 
     @Override
@@ -49,13 +49,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public ProductDto save(ProductDto productDto) {
         Product product = mapper.toProduct(productDto);
-        return mapper.toProductDto(crudRepository.save(product));
-    }
-
-    @Override
-    public ProductDto update(ProductDto productDto) {
-        Product product = mapper.toProduct(productDto);
-        //TODO VALIDAR CONTENIDO ANTES DE HACER UN SAVE. VER SI HAY OTRO METODO QUE HAGA UPDATES EN VEZ DE INSERT
         return mapper.toProductDto(crudRepository.save(product));
     }
 

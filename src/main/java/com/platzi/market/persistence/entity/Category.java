@@ -23,6 +23,6 @@ public class Category {
     @Column(name = "estado")
     private Boolean state;
 
-    @OneToMany(mappedBy = "category") // TODO mappedBy match variable name in the related Class
+    @OneToMany(mappedBy = "category") // mappedBy match variable name in the related Class
     private List<Product> products;
 }

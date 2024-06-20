@@ -18,7 +18,7 @@ public class PurchaseProduct {
     @Column(name = "cantidad")
     private Integer quantity;
 
-    private BigDecimal total; // TODO if variable name and column name match, dont need to specify an anotation with column name
+    private BigDecimal total; // if variable name and column name match, don't need to specify an anotation with column name
 
     @Column(name = "estado")
     private Boolean state;

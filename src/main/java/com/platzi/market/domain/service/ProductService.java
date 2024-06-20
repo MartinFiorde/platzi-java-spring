@@ -31,12 +31,15 @@ public class ProductService {
         return productRepository.getByCategory(categoryId);
     }
 
+    public Optional<List<ProductDto>> getScarceProducts(int stockQuantity) {
+        return productRepository.getScarceProducts(stockQuantity);
+    }
+
     public ProductDto save(ProductDto product) {
         return productRepository.save(product);
     }
 
-    // TODO PROBAR Y REVISAR. SOLUCION PROPUESTA POR UN ALUMNO Y CHATGPT. REVISAR VALIDACIONES
-    // https://chatgpt.com/share/a073ce0a-2443-493c-969d-04763e964a5f
+    // TODO PROBAR Y REVISAR. SOLUCION PROPUESTA POR UN ALUMNO Y CHATGPT. REVISAR VALIDACIONES https://chatgpt.com/share/a073ce0a-2443-493c-969d-04763e964a5f
     public Optional<ProductDto> update(long id, ProductDto productDto) {
         Optional<ProductDto> optProductDto = productRepository.getProduct(id);
         if (optProductDto.isEmpty()) {

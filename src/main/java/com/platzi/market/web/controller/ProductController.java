@@ -1,7 +1,7 @@
 package com.platzi.market.web.controller;
 
 import com.platzi.market.domain.dto.ProductDto;
-import com.platzi.market.domain.service.ProductService;
+import com.platzi.market.domain.service.ProductServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService service;
+    private final ProductServ service;
 
     @Autowired
-    public ProductController(ProductService service) {
-        this.service = service;
+    public ProductController(ProductServ serv) {
+        this.service = serv;
     }
 
     @GetMapping("/all")

@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class ProductServ {
 
     private final ProductRepo repo;
 
     @Autowired
-    public ProductService(ProductRepo repo) {
+    public ProductServ(ProductRepo repo) {
         this.repo = repo;
     }
 

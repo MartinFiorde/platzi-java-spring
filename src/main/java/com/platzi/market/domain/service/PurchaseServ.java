@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PurchaseService {
+public class PurchaseServ {
 
     private final PurchaseRepo repo;
 
     @Autowired
-    public PurchaseService(PurchaseRepo repo) {
+    public PurchaseServ(PurchaseRepo repo) {
         this.repo = repo;
     }
 

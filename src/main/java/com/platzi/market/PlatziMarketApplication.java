@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
 public class PlatziMarketApplication {
 
 	public static void main(String[] args) throws UnknownHostException {
-		System.out.println("Application IP: " + InetAddress.getLocalHost().getHostAddress());
+		System.out.println("Application IP: " + InetAddress.getLocalHost().getHostAddress()); // to show in Railway console the IP to autorize in Render DB
 		SpringApplication.run(PlatziMarketApplication.class, args);
 
 	}

@@ -25,13 +25,13 @@ public class PurchaseController {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/clientId/{id}")
+    @GetMapping("/client/{id}")
     public ResponseEntity<List<PurchaseDto>> getByClientId(@PathVariable("id") String clientId) {
         return ResponseEntity.of(service.getByClientId(clientId));
     }
 
     @PostMapping
-    public ResponseEntity<PurchaseDto> save(PurchaseDto purchaseDto) {
+    public ResponseEntity<PurchaseDto> save(@RequestBody PurchaseDto purchaseDto) {
         return new ResponseEntity<>(service.save(purchaseDto), HttpStatus.CREATED);
     }
 }

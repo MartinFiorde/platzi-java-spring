@@ -18,6 +18,7 @@ repositories {
 }
 
 val dotEnvVer = "3.0.0"
+val webmvcUiVer = "2.5.0"
 val lombokVer = "1.18.32"
 val postgresqlVer = "42.7.3"
 val mapstructVer = "1.5.5.Final"
@@ -26,6 +27,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") // no version, spring handle by default
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") // no version, spring handle by default
     implementation("io.github.cdimascio:dotenv-java:$dotEnvVer") // https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$webmvcUiVer") // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 
     compileOnly("org.projectlombok:lombok:$lombokVer") // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly("org.mapstruct:mapstruct:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
@@ -38,7 +40,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-tasks.named<Test>("test") { //"tasks.test {" for same result
+tasks.named<Test>("test") {
     useJUnitPlatform()
     jvmArgs("-XX:+EnableDynamicAgentLoading") // Supress warnings when we execute tests
 }

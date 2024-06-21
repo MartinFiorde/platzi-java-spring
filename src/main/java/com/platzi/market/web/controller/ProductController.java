@@ -2,6 +2,10 @@ package com.platzi.market.web.controller;
 
 import com.platzi.market.domain.dto.ProductDto;
 import com.platzi.market.domain.service.ProductServ;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +25,21 @@ public class ProductController {
     }
 
     @GetMapping("/all")
+    @Operation(summary = "Get a list with all products")
+    @ApiResponse(responseCode = "200", description = "Ok")
     public ResponseEntity<List<ProductDto>> getAll() { // OLD VERSION: List<ProductDto> getAll()
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK); // OLD VERSION: return service.getAll()
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable long id) {
+    @Operation(summary = "Search a product with an ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Ok"),
+            @ApiResponse(responseCode = "404", description = "Product not found"),
+    })
+    public ResponseEntity<ProductDto> getProduct(
+            @Parameter(description = "The id of product", required = true, example = "7")
+            @PathVariable long id) {
         return ResponseEntity.of(service.getProduct(id)); // ResponseEntity OK/NOT_FOUND split for Spring 5.X and over
     }
 

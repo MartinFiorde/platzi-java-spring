@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.platzi"
-version = "0.0.1-SNAPSHOT"
+version = "1.0"
 
 java {
     toolchain {
@@ -17,7 +17,7 @@ repositories {
     mavenCentral()
 }
 
-val dotEnvVer = "3.0.0"
+val webmvcUiVer = "2.5.0"
 val lombokVer = "1.18.32"
 val postgresqlVer = "42.7.3"
 val mapstructVer = "1.5.5.Final"
@@ -25,20 +25,20 @@ val mapstructVer = "1.5.5.Final"
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") // no version, spring handle by default
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") // no version, spring handle by default
-    implementation("io.github.cdimascio:dotenv-java:$dotEnvVer") // https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$webmvcUiVer") // API DOCUMENTATION: https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 
-    compileOnly("org.projectlombok:lombok:$lombokVer") // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly("org.mapstruct:mapstruct:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
-    annotationProcessor("org.projectlombok:lombok:$lombokVer")
-    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer") // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
+    compileOnly("org.projectlombok:lombok:$lombokVer") // LOMBOK ANOTATIONS: https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly("org.mapstruct:mapstruct:$mapstructVer") // MAPPER: https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    annotationProcessor("org.projectlombok:lombok:$lombokVer") // LOMBOK ANOTATIONS: https://mvnrepository.com/artifact/org.projectlombok/lombok
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer") // MAPPER: https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
 
-    runtimeOnly("org.postgresql:postgresql:$postgresqlVer") // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    runtimeOnly("org.postgresql:postgresql:$postgresqlVer") // DB CONFIG: https://mvnrepository.com/artifact/org.postgresql/postgresql
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-tasks.named<Test>("test") { //"tasks.test {" for same result
+tasks.named<Test>("test") {
     useJUnitPlatform()
-    jvmArgs("-XX:+EnableDynamicAgentLoading") // Supress warnings when we execute tests
+    jvmArgs("-XX:+EnableDynamicAgentLoading") // Supress test warning "A Java agent (byte-buddy-agent) has been loaded dynamically. Dynamic loading of agents will be disallowed by default in future releases"
 }

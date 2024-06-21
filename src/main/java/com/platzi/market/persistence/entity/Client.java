@@ -13,7 +13,7 @@ import java.util.List;
 public class Client {
 
     @Id
-    private Long id;
+    private String id;
 
     @Column(name = "nombre")
     private String firstName;

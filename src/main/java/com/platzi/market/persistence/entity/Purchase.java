@@ -28,7 +28,7 @@ public class Purchase {
     private String paymentMethod;
 
     @Column(name = "comentario")
-    private Integer comment;
+    private String comment;
 
     @Column(name = "estado")
     private String state;

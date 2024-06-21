@@ -2,6 +2,7 @@ package com.platzi.market.domain.service;
 
 import com.platzi.market.domain.dto.PurchaseDto;
 import com.platzi.market.domain.repository.PurchaseRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class PurchaseServ {
         return repo.getByClientId(clientId).filter(purch -> !purch.isEmpty());
     }
 
+    @Transactional
     public PurchaseDto save(PurchaseDto purchaseDto) {
         return repo.save(purchaseDto);
     }

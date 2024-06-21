@@ -3,6 +3,7 @@ package com.platzi.market.domain.service;
 import com.platzi.market.domain.dto.ProductDto;
 import com.platzi.market.domain.exceptions.ProductNotFoundException;
 import com.platzi.market.domain.repository.ProductRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,11 +36,13 @@ public class ProductServ {
         return repo.getScarceProducts(stockQuantity);
     }
 
+    @Transactional
     public ProductDto save(ProductDto product) {
         return repo.save(product);
     }
 
     // TODO PROBAR Y REVISAR. SOLUCION PROPUESTA POR UN ALUMNO Y CHATGPT. REVISAR VALIDACIONES https://chatgpt.com/share/a073ce0a-2443-493c-969d-04763e964a5f
+    @Transactional
     public Optional<ProductDto> update(long id, ProductDto productDto) {
         ProductDto productToUpdate = repo.getProduct(id).orElse(null);
         if (productToUpdate == null) {
@@ -53,6 +56,7 @@ public class ProductServ {
         return Optional.of(repo.save(productToUpdate));
     }
 
+    @Transactional
     public boolean delete(long id) {
         try {
             if (!repo.existsById(id)) throw new ProductNotFoundException(id);

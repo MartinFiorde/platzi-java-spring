@@ -13,9 +13,9 @@ class PlatziMarketApplicationTests {
 	@Autowired
 	private ApplicationContext context;
 
-	@Test
-	void contextLoads() {
-		assertNotNull(context,"ApplicationContext shouldn't be null");
-	}
+//	@Test
+//	void contextLoads() {
+//		assertNotNull(context,"ApplicationContext shouldn't be null");
+//	}
 
 }

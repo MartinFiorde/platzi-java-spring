@@ -5,7 +5,6 @@ import com.platzi.market.domain.service.ProductServ;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +32,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Search a product with an ID")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Ok"),
-            @ApiResponse(responseCode = "404", description = "Product not found"),
-    })
+    @ApiResponse(responseCode = "200", description = "Ok")
+    @ApiResponse(responseCode = "404", description = "Product not found")
     public ResponseEntity<ProductDto> getProduct(
             @Parameter(description = "The id of product", required = true, example = "7")
             @PathVariable long id) {
